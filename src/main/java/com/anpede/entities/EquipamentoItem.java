@@ -16,11 +16,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_equipamento_item")
-public class EquipamentoItem implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class EquipamentoItem implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; 
+	private Long id;
 	private String numeroSerie;
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
@@ -31,12 +31,6 @@ public class EquipamentoItem implements Serializable {
 	public EquipamentoItem() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public EquipamentoItem(Long id, String numeroSerie, Situacao situacao) {		
-		this.id = id;
-		this.numeroSerie = numeroSerie;
-		this.situacao = situacao;
-	}
 
 	public EquipamentoItem(Long id, String numeroSerie, Situacao situacao, Equipamento equipamento) {
 		super();
@@ -45,6 +39,8 @@ public class EquipamentoItem implements Serializable {
 		this.situacao = situacao;
 		this.equipamento = equipamento;
 	}
+	
+	
 
 	public Equipamento getEquipamento() {
 		return equipamento;
@@ -93,9 +89,8 @@ public class EquipamentoItem implements Serializable {
 			return false;
 		EquipamentoItem other = (EquipamentoItem) obj;
 		return Objects.equals(id, other.id);
-	}	
-
+	}
+	
+	
+	
 }
-
-
-
