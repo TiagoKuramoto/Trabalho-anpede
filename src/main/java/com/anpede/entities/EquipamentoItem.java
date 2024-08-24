@@ -1,26 +1,30 @@
 package com.anpede.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import com.anpede.entities.enums.Situacao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_equipamento_item")
-public class EquipamentoItem implements Serializable{
-	
+public class EquipamentoItem implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; 
 	private String numeroSerie;
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
@@ -28,8 +32,26 @@ public class EquipamentoItem implements Serializable{
 	@ManyToOne
 	private Equipamento equipamento;
 	
+	@OneToMany(mappedBy = "equipamentoItem", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<Emprestimo> emprestimo;
+	
 	public EquipamentoItem() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	public List<Emprestimo> getEmprestimo() {
+		return emprestimo;
+	}
+
+
+
+	public EquipamentoItem(Long id, String numeroSerie, Situacao situacao) {		
+		this.id = id;
+		this.numeroSerie = numeroSerie;
+		this.situacao = situacao;
 	}
 
 	public EquipamentoItem(Long id, String numeroSerie, Situacao situacao, Equipamento equipamento) {
@@ -39,8 +61,6 @@ public class EquipamentoItem implements Serializable{
 		this.situacao = situacao;
 		this.equipamento = equipamento;
 	}
-	
-	
 
 	public Equipamento getEquipamento() {
 		return equipamento;
@@ -89,8 +109,9 @@ public class EquipamentoItem implements Serializable{
 			return false;
 		EquipamentoItem other = (EquipamentoItem) obj;
 		return Objects.equals(id, other.id);
-	}
-	
-	
-	
+	}	
+
 }
+
+
+

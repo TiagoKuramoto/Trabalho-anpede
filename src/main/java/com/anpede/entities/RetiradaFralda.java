@@ -5,50 +5,89 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "tb_RetiradaFralda")
-public class RetiradaFralda implements Serializable{
+@Table(name = "tb_retirada_fralda")
+public class RetiradaFralda implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	@Id
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Integer quantidade;
-	private LocalDate dataretirada;
+	private LocalDate dataRetirada;
+	
+	@ManyToOne
+	private Associado associado;
+	
+	@ManyToOne
+	private Fralda fralda;
+	
+	
 	public RetiradaFralda() {
-		//VOID
+		// VOID
 	}
-	public RetiradaFralda(Long id,Integer quantidade,LocalDate dataretirada) {
+
+	public RetiradaFralda(Long id, Integer quantidade, LocalDate dataRetirada) {
 		super();
 		this.id = id;
 		this.quantidade = quantidade;
-		this.dataretirada = dataretirada;
+		this.dataRetirada = dataRetirada;
 	}
 	
+	
+	
+	public Fralda getFralda() {
+		return fralda;
+	}
+
+	public void setFralda(Fralda fralda) {
+		this.fralda = fralda;
+	}
+
+	public Associado getAssociado() {
+		return associado;
+	}
+
+	public void setAssociado(Associado associado) {
+		this.associado = associado;
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Integer getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	public LocalDate getDataretirada() {
-		return dataretirada;
+
+	public LocalDate getDataRetirada() {
+		return dataRetirada;
 	}
+
 	public void setDataRetirada(LocalDate dataRetirada) {
-		this.dataretirada = dataRetirada;
+		this.dataRetirada = dataRetirada;
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataretirada, id, quantidade);
+		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,9 +97,9 @@ public class RetiradaFralda implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		RetiradaFralda other = (RetiradaFralda) obj;
-		return Objects.equals(dataretirada, other.dataretirada) && Objects.equals(id, other.id)
-				&& Objects.equals(quantidade, other.quantidade);
+		return Objects.equals(id, other.id);
 	}
+	
 	
 
 }
